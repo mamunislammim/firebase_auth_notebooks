@@ -1,3 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_notebook/screen/home_screen.dart';
+import 'package:firebase_auth_notebook/screen/sign_in.dart';
 import 'package:flutter/material.dart';
 
 class LogOutPage extends StatefulWidget {
@@ -14,7 +17,7 @@ class _LogOutPageState extends State<LogOutPage> {
       backgroundColor: Colors.teal,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
+        children: [
           Center(
             child: Text(
               "Thank You",
@@ -24,11 +27,23 @@ class _LogOutPageState extends State<LogOutPage> {
           SizedBox(
             height: 20,
           ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text("Log Out"),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomescreen()));
+              }, child: Text("Go To Home Page")),
+              ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) =>
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignInPage())));
+                },
+                child: Text("Log Out"),
+              ),
+            ],
           )
         ],
       ),
